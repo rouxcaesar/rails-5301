@@ -1,0 +1,67 @@
+Bundler gem - handles gem dependencies for Rails projects
+
+database.yml - file tells app how to connect to the database (sqlite3 usually)
+
+When working on a team, the first thing you should look at is how you get your app up and running and how do you connect it to the database.
+The first files you should look at to do this are: Gemfile, routes.rb, database.yml
+
+When a request comes into the app, the router processes the request. The router will route the request to a specific controller action.
+The controller can redirect the request to antoher action to render a template.
+
+Once the request reaches the appropriate controller action, the controller may need to inspect our persistence layer.
+The controller will reach out to the model, which will communicate with the database and then send the needed data to the controller.
+
+The controller will then take that data response and render the template, which has a corresponding view.
+
+application.rb - is where we set application defaults, the load path, and other configurations
+
+config folder - environment specific files that override the settings in application.rb
+
+yaml is like a "complicated hash"
+
+development.log - file that contains all the logs while running your app
+
+.gitignore - specifies which files to NOT commit & push to Github; they're specific to your machine
+
+ORMs allow us to avoid writing database code like SQL queries.
+
+ORM = Object-Relational Mapping
+
+ActiveRecord is the Rails ORM and is a pattern that abstracts away our persistance/database layer.
+
+$ rails console -> great for quickly working with your Rails code and verifying that everything is working as expected.
+
+Virtual attributes -> remember these! They are given to you via associations and do not appear in the db schema.
+
+Examples: has_many :posts ; belongs_to :user
+
+Mass assignment is the ability to set multiple values to columns through a hash.
+
+This will be one of the most used concepts when working in Rails. Remember it!
+
+Some methods only store updates in memory, others will actually hit the database.
+	- #new will only store in memory
+	- #save can be called on new instances (after #new) to save to the database
+	- #create does the same action as #new but also hits the database
+
+As a general rule of thumb, don't edit your migrations. Just generate new migrations to change the database. If you haven't pushed a migration to Github/DVCS, you can rollback the migration and edit it.
+
+Realize that the database is a separate application to your Rails application. When you run migrations, you are running Ruby code that executes actions on the database.
+
+habtm = has and belongs to many
+
+hmt = has many through
+
+
+Database layer:
+  - join table
+
+
+Model layer:
+1. has_and_belongs_to_many
+   - no join model
+   - implicit join table at db layer
+       - table1_name_table2_name ex: group_users
+
+
+

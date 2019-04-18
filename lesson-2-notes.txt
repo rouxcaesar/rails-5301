@@ -1,0 +1,43 @@
+Forms are a foundational topic in Rails.
+
+Form partials are very useful. They allow for a significant amount of reuse across multiple actions. In this lesson, one form (_form.html.erb) is used across 4 actions (new, create, edit, update)!
+
+We always want to use Rails helpers when making forms because it's faster, easier, and handles the CSRF authenticity tokens for us.
+
+Strong params help make your app more secure. To use strong params, write your Controller#create methods like so: post = Post.create(post_params)
+
+Then define a private method like so:
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :url) # can specify the params
+  end
+
+You can also use #permit! to allow any & all params. This is commonly used for admin users, like so:
+
+  private
+
+  def post_params
+    if user.admin?
+      params.require(:post).permit!
+    else
+      params.require(:post).permit(:title, :url)
+    end
+  end
+
+
+Validations only trigger once you try to hit the database.
+
+#errors on a model object instance will return an errors hash to look over.
+
+#errors.full_messages will show your error messages in an easy-to-read array.
+
+Rails uses the _method input element to determine which HTTP action to use.
+
+Before actions (before_action) are used for two main reasons.
+  - To setup an instance variable (like with #set_post for show, edit, update)
+  - To redirect based on some condition (like when a user isn't logged in).
+
+Instance variables flow into partials -> Any instance variable in a partial must be present in all of the controller actions that rely on that partial.
+

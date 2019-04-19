@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = User.first # TODO: change once we have authentication
-
+    # binding.pry
     # MEMORIZE the following pattern!
     if @post.save
       flash[:notice] = "Your post was created."
@@ -42,11 +42,11 @@ class PostsController < ApplicationController
 
   # strong parameters for security
   def post_params
-    params.require(:post).permit!
+    # params.require(:post).permit!
     # if user.admin?
     #   params.require(:post).permit!               # permits all attributes
     # else
-    #   params.require(:post).permit(:title, :url)  # only permits certain attributes that you decide
+    params.require(:post).permit(:title, :url, :description, category_ids: [])  # only permits certain attributes that you decide
     # end
   end
 

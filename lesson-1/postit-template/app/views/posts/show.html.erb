@@ -29,6 +29,6 @@
 		<em>"<%= comment.body %>"</em>
 		<br/>
 		<span class="quiet">by</span> <%= comment.user.username %>
-		<small><%= comment.created_at %></small>
+		<small><%= display_datetime(comment.created_at) %></small>
 	</div>
 <% end %>
